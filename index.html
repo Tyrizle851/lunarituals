@@ -1,369 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Luna Rituals – Elevate Your Space &amp; Mind</title>
-  <meta name="description" content="Luna Rituals offers AI‑crafted affirmation prints, journals and digital ritual bundles designed to elevate your space and spirit. Explore our serene collections and personalize your own rituals.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Canonical URL for SEO -->
-  <link rel="canonical" href="https://tyrezell851.github.io/lunarituals/">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Luna Rituals — Elevate Your Space & Mind</title>
+  <meta name="description" content="Luna Rituals offers AI‑crafted affirmation prints, journals, and mood bundles in soft, earthy aesthetics. Elevate your space & mind with minimalist designs and calming rituals." />
+  <meta name="theme-color" content="#e9e5df" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Luna Rituals — Elevate Your Space & Mind" />
+  <meta property="og:description" content="AI‑crafted affirmation prints, journals, and mood bundles in soft, earthy aesthetics." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://tyrizle851.github.io/lunarituals/assets/logo.png" />
+  <meta property="og:url" content="https://tyrizle851.github.io/lunarituals/" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    /* Design system */
-    :root {
-      --cream: #f7f3e8;
-      --clay: #855f47;
-      --sage: #7b8d6a;
-      --ink: #4d3b33;
-      --radius: 12px;
-      --maxWidth: 960px;
+    :root{
+      /* Soft earthy palette */
+      --sand:#e9e5df; /* background */
+      --cream:#f8f6f3; /* cards */
+      --sage:#b9c2b0; /* accents */
+      --olive:#7b8d6a; /* buttons */
+      --clay:#b8856a; /* highlights */
+      --charcoal:#2e2c2a; /* text */
+      --ink:#47433f; /* secondary text */
+      --radius:18px;
+      --shadow:0 10px 24px rgba(0,0,0,.08);
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.5;
-    }
-    header {
-      padding: 24px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: var(--maxWidth);
-      margin: 0 auto;
-    }
-    header img.logo {
-      height: 48px;
-    }
-    nav a {
-      margin-left: 24px;
-      text-decoration: none;
-      color: var(--ink);
-      font-weight: 500;
-    }
-    main {
-      max-width: var(--maxWidth);
-      margin: 0 auto;
-      padding: 16px;
-    }
-    .hero {
-      text-align: center;
-      padding: 60px 0;
-    }
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--ink);
-      max-width: 600px;
-      margin: 0 auto 24px;
-    }
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
-    }
-    .card {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 6px;
-      color: var(--ink);
-    }
-    .card p {
-      font-size: 0.9rem;
-      color: #5c5047;
-      flex: 1;
-      margin-bottom: 12px;
-    }
-    .card .price {
-      font-weight: bold;
-      color: var(--clay);
-      margin-bottom: 12px;
-    }
-    .card button {
-      padding: 10px 14px;
-      background: var(--sage);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .section {
-      margin-top: 60px;
-    }
-    #preview {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    #preview h2 {
-      font-size: 1.6rem;
-      margin-bottom: 12px;
-    }
-    #preview form {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    #preview input {
-      flex: 1;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.1);
-      background: var(--cream);
-      color: var(--ink);
-    }
-    #preview button {
-      padding: 12px 18px;
-      background: var(--sage);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    #previewResult {
-      display: none;
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: var(--radius);
-      background: var(--cream);
-    }
-    #previewResult h3 {
-      margin-bottom: 8px;
-    }
-    #previewResult p {
-      font-style: italic;
-    }
-    #signup {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    #signup h2 {
-      font-size: 1.6rem;
-      margin-bottom: 12px;
-    }
-    #signup p {
-      margin-bottom: 12px;
-    }
-    #signup form {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    #signup input[type=email] {
-      flex: 1;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.1);
-      background: var(--cream);
-    }
-    #signup button {
-      padding: 12px 18px;
-      background: var(--clay);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    footer {
-      margin-top: 60px;
-      text-align: center;
-      padding: 24px;
-      font-size: 0.8rem;
-      color: #5c5047;
-    }
-    @media (max-width: 480px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        margin-top: 12px;
-      }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--sand);color:var(--charcoal);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    header{position:sticky;top:0;background:rgba(233,229,223,.85);backdrop-filter:saturate(140%) blur(8px);z-index:20;border-bottom:1px solid rgba(0,0,0,.04)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff 0%, var(--sage) 40%, var(--olive) 100%);box-shadow:inset 0 2px 6px rgba(0,0,0,.08)}
+    .brand h1{font-family:Marcellus,serif;font-size:20px;letter-spacing:.5px;margin:0}
+    .nav a.btn{padding:10px 14px;border-radius:999px;border:1px solid rgba(0,0,0,.06);background:var(--cream)}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:64px 0}
+    .card{background:var(--cream);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05)}
+    .hero .panel{padding:28px}
+    .eyebrow{color:var(--olive);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+    .headline{font-family:Marcellus,serif;font-size:46px;line-height:1.05;margin:10px 0 10px}
+    .sub{color:var(--ink);font-size:16px;line-height:1.6}
+    .cta{display:flex;gap:12px;margin-top:18px}
+    .btn-primary{background:var(--olive);color:#fff;border:none;padding:12px 16px;border-radius:999px;box-shadow:0 6px 16px rgba(123,141,106,.25);font-weight:600}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.12);padding:12px 16px;border-radius:999px}
+    .mock{height:380px;border-radius:var(--radius);overflow:hidden;position:relative}
+    .mock svg{width:100%;height:100%;display:block}
+    .section{padding:24px 0 12px}
+    h2{font-family:Marcellus,serif;font-size:28px;margin:0 0 10px}
+    p.lead{color:var(--ink)}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    .feature{padding:18px}
+    .feature h3{margin:8px 0 6px;font-size:18px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .product{display:flex;flex-direction:column;overflow:hidden}
+    .media{aspect-ratio:4/5;background:linear-gradient(180deg,#f7f5f1, #e5e1da);display:grid;place-items:center}
+    .tag{position:absolute;top:10px;left:10px;background:rgba(123,141,106,.9);color:#fff;font-size:12px;padding:6px 10px;border-radius:999px}
+    .pbody{padding:14px}
+    .pname{font-weight:600}
+    .pdesc{color:var(--ink);font-size:14px;margin:6px 0 10px}
+    .price{font-weight:700}
+    .filterbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+    .chip{border:1px solid rgba(0,0,0,.1);background:#fff;padding:8px 12px;border-radius:999px;cursor:pointer}
+    .chip.active{background:var(--olive);color:#fff;border-color:transparent}
+    .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .quote{padding:18px;font-size:15px;color:var(--ink)}
+    .signup{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;margin-top:10px}
+    .signup form{display:flex;gap:10px}
+    input[type=email]{flex:1;padding:12px 14px;border-radius:999px;border:1px solid rgba(0,0,0,.12);background:#fff}
+    button[type=submit]{padding:12px 16px;border-radius:999px;border:none;background:var(--clay);color:#fff;font-weight:700}
+    footer{margin-top:40px;padding:28px 0;border-top:1px solid rgba(0,0,0,.06);color:var(--ink)}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .features,.grid,.testimonials,.signup{grid-template-columns:1fr}
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Luna Rituals",
+    "url": "https://tyrizle851.github.io/lunarituals/",
+    "logo": "https://tyrizle851.github.io/lunarituals/assets/logo.png",
+    "sameAs": []
+  }
+  </script>
 </head>
 <body>
   <header>
-    <img src="assets/logo.png" alt="Luna Rituals logo" class="logo" />
-    <nav>
-      <a href="#collections">Collections</a>
-      <a href="#preview">Preview</a>
-      <a href="#signup">Subscribe</a>
-    </nav>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>Luna Rituals</h1>
+      </div>
+      <nav>
+        <a class="btn" href="#shop">Shop</a>
+        <a class="btn" href="#about">About</a>
+        <a class="btn" href="#signup">Sign up</a>
+      </nav>
+    </div>
   </header>
-  <main>
+
+  <main class="wrap">
+    <!-- Hero -->
     <section class="hero">
-      <h1>Elevate Your Space &amp; Mind</h1>
-      <p>Discover AI‑crafted affirmation prints, journals, and ritual bundles designed to bring serenity and intention into your daily life.</p>
-    </section>
-    <section id="collections" class="section">
-      <h2>Featured Collections</h2>
-      <div class="products" id="productGrid">
-        <!-- Products will be populated by script -->
+      <div class="panel card">
+        <div class="eyebrow">Soft • Earthy • Minimal</div>
+        <h2 class="headline">Elevate your space & mind.</h2>
+        <p class="sub">AI‑crafted affirmation prints, journals, and mood bundles inspired by nature. Thoughtfully designed to bring calm focus and gentle motivation to your day.</p>
+        <div class="cta">
+          <a class="btn-primary" href="#shop">Browse Collections</a>
+          <a class="btn-ghost" href="#about">Why it works</a>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="mock card" aria-label="Preview of Luna Rituals products">
+          <!-- Minimal illustrated mock (SVG) -->
+          <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Earthy abstract mockup">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f8f6f3"/>
+                <stop offset="100%" stop-color="#e9e5df"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="600" fill="url(#g1)"/>
+            <rect x="80" y="70" width="280" height="420" rx="18" fill="#ffffff" stroke="#e1ddd6"/>
+            <circle cx="220" cy="210" r="70" fill="#b9c2b0"/>
+            <rect x="120" y="320" width="200" height="14" rx="7" fill="#7b8d6a"/>
+            <rect x="120" y="346" width="170" height="10" rx="5" fill="#b8856a"/>
+            <rect x="420" y="120" width="280" height="360" rx="18" fill="#ffffff" stroke="#e1ddd6"/>
+            <rect x="460" y="190" width="200" height="120" rx="12" fill="#e9e5df"/>
+            <rect x="460" y="330" width="150" height="12" rx="6" fill="#7b8d6a"/>
+            <rect x="460" y="352" width="120" height="10" rx="5" fill="#b8856a"/>
+          </svg>
+        </div>
       </div>
     </section>
-    <section id="preview" class="section">
-      <h2>Try a Personalized Preview</h2>
-      <p class="lead">Enter a theme or mood (e.g. calm morning, focus, gratitude) to see an AI‑generated affirmation sample.</p>
-      <form id="previewForm">
-        <input type="text" id="themeInput" placeholder="e.g. calm morning" required />
-        <button type="submit">Generate Preview</button>
-      </form>
-      <div id="previewResult">
-        <h3>Your Preview</h3>
-        <p id="previewText"></p>
+
+    <!-- Why it works -->
+    <section id="about" class="section">
+      <h2>Designed for calm focus</h2>
+      <p class="lead">We pair gentle typography, soft earthy palettes, and evidence‑backed prompts to nudge daily consistency. Every piece is minimalist by design and crafted to look beautiful in your space.</p>
+      <div class="features">
+        <div class="feature card">
+          <strong>Minimalist Aesthetic</strong>
+          <p>Neutral textures and soft sage accents that pair with any interior style.</p>
+        </div>
+        <div class="feature card">
+          <strong>AI‑Crafted Prompts</strong>
+          <p>Curated affirmations and journal frameworks generated and refined with AI.</p>
+        </div>
+        <div class="feature card">
+          <strong>Instant Download</strong>
+          <p>Print at home or use digitally. Your files arrive seconds after purchase.</p>
+        </div>
       </div>
     </section>
+
+    <!-- Shop -->
+    <section id="shop" class="section">
+      <h2>Collections</h2>
+      <p class="lead">Browse our first drop. Checkout will be enabled soon — for now, explore styles and sign up for the launch.</p>
+
+      <div class="filterbar">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="prints">Affirmation Prints</button>
+        <button class="chip" data-filter="journals">Journals</button>
+        <button class="chip" data-filter="bundles">Mood Bundles</button>
+      </div>
+
+      <div class="grid" id="productGrid">
+        <!-- Product 1 -->
+        <article class="product card" data-cat="prints">
+          <div class="media" aria-label="Serene affirmation print preview">
+            <span class="tag">Print</span>
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="400" height="500" fill="#f7f5f1"/>
+              <circle cx="200" cy="170" r="70" fill="#b9c2b0"/>
+              <rect x="100" y="280" width="200" height="12" rx="6" fill="#7b8d6a"/>
+              <rect x="120" y="305" width="160" height="10" rx="5" fill="#b8856a"/>
+            </svg>
+          </div>
+          <div class="pbody">
+            <div class="pname">Serene Intentions</div>
+            <div class="pdesc">A minimalist affirmation print to anchor your morning ritual.</div>
+            <div class="price">$6.99</div>
+          </div>
+        </article>
+
+        <!-- Product 2 -->
+        <article class="product card" data-cat="journals">
+          <div class="media" aria-label="Daily reset journal preview">
+            <span class="tag">Journal</span>
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="400" height="500" fill="#f7f5f1"/>
+              <rect x="90" y="130" width="220" height="240" rx="12" fill="#e9e5df"/>
+              <rect x="110" y="160" width="180" height="12" rx="6" fill="#7b8d6a"/>
+              <rect x="110" y="185" width="140" height="10" rx="5" fill="#b8856a"/>
+            </svg>
+          </div>
+          <div class="pbody">
+            <div class="pname">Daily Reset Journal</div>
+            <div class="pdesc">A guided 7‑minute flow for clarity, gratitude, and intention‑setting.</div>
+            <div class="price">$12.99</div>
+          </div>
+        </article>
+
+        <!-- Product 3 -->
+        <article class="product card" data-cat="bundles">
+          <div class="media" aria-label="Calm mornings bundle preview">
+            <span class="tag">Bundle</span>
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="400" height="500" fill="#f7f5f1"/>
+              <rect x="60" y="110" width="280" height="70" rx="10" fill="#e9e5df"/>
+              <rect x="60" y="200" width="280" height="70" rx="10" fill="#e9e5df"/>
+              <rect x="60" y="290" width="280" height="70" rx="10" fill="#e9e5df"/>
+            </svg>
+          </div>
+          <div class="pbody">
+            <div class="pname">Calm Mornings Bundle</div>
+            <div class="pdesc">Three coordinated prints + a micro‑journal to set tone for the day.</div>
+            <div class="price">$12.99</div>
+          </div>
+        </article>
+
+        <!-- Product 4 -->
+        <article class="product card" data-cat="prints">
+          <div class="media" aria-label="Grounded mantras print preview">
+            <span class="tag">Print</span>
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="400" height="500" fill="#f7f5f1"/>
+              <rect x="100" y="150" width="200" height="12" rx="6" fill="#7b8d6a"/>
+              <rect x="120" y="175" width="160" height="10" rx="5" fill="#b8856a"/>
+              <circle cx="200" cy="300" r="70" fill="#b9c2b0"/>
+            </svg>
+          </div>
+          <div class="pbody">
+            <div class="pname">Grounded Mantras</div>
+            <div class="pdesc">Set of three mantras for focus, momentum, and gentle discipline.</div>
+            <div class="price">$6.99</div>
+          </div>
+        </article>
+
+        <!-- Product 5 -->
+        <article class="product card" data-cat="journals">
+          <div class="media" aria-label="Evening unwind journal preview">
+            <span class="tag">Journal</span>
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="400" height="500" fill="#f7f5f1"/>
+              <rect x="90" y="140" width="220" height="70" rx="12" fill="#e9e5df"/>
+              <rect x="90" y="230" width="220" height="70" rx="12" fill="#e9e5df"/>
+              <rect x="90" y="320" width="220" height="70" rx="12" fill="#e9e5df"/>
+            </svg>
+          </div>
+          <div class="pbody">
+            <div class="pname">Evening Unwind Journal</div>
+            <div class="pdesc">A soft‑landing journaling flow to release, reflect, and restore.</div>
+            <div class="price">$11.99</div>
+          </div>
+        </article>
+
+        <!-- Product 6 -->
+        <article class="product card" data-cat="bundles">
+          <div class="media" aria-label="Focus week bundle preview">
+            <span class="tag">Bundle</span>
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="400" height="500" fill="#f7f5f1"/>
+              <rect x="70" y="120" width="260" height="240" rx="14" fill="#e9e5df"/>
+              <rect x="100" y="160" width="200" height="12" rx="6" fill="#7b8d6a"/>
+              <rect x="100" y="185" width="150" height="10" rx="5" fill="#b8856a"/>
+            </svg>
+          </div>
+          <div class="pbody">
+            <div class="pname">Focus Week Set</div>
+            <div class="pdesc">Planner + affirmation grid + printable tracker for a 7‑day sprint.</div>
+            <div class="price">$14.99</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Social proof / Testimonials -->
+    <section class="section">
+      <h2>What people say</h2>
+      <div class="testimonials">
+        <div class="quote card">“The prints feel calming without clutter. My desk looks intentional now.” — Aria</div>
+        <div class="quote card">“The journal prompts are simple but they actually get me writing.” — Maya</div>
+        <div class="quote card">“Love the earthy palette. It matches my space perfectly.” — Liv</div>
+      </div>
+    </section>
+
+    <!-- Email signup -->
     <section id="signup" class="section">
-      <h2>Join the Ritual</h2>
-      <p>Sign up for launch notifications and monthly printable gifts.</p>
-      <form id="subscribeForm" action="https://formspree.io/f/mvgwndjj" method="POST">
-        <input type="email" name="email" placeholder="Your email" required />
-        <!-- Honeypot field to reduce spam -->
-        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" />
-        <button type="submit">Notify me</button>
-      </form>
-      <p id="subscribeMsg" style="margin-top: 8px;"></p>
+      <h2>Be first to know when checkout opens</h2>
+      <div class="signup">
+        <p class="lead">Join the list for launch day access, early discounts, and free monthly printables. No spam, just gentle inspiration.</p>
+        <form id="subscribeForm">
+          <input type="email" name="email" placeholder="Your email" required aria-label="Email address" />
+          <button type="submit">Notify me</button>
+        </form>
+      </div>
     </section>
+
+    <footer>
+      <div class="wrap" style="padding:0">
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <small>© <span id="year"></span> Luna Rituals</small>
+          <small><a href="#">Pinterest</a> · <a href="#">Instagram</a> · <a href="#">Contact</a></small>
+        </div>
+      </div>
+    </footer>
   </main>
-  <footer>
-    &copy; 2025 Luna Rituals. All rights reserved.
-  </footer>
+
   <script>
-    // Configuration: update PREVIEW_ENDPOINT with your Cloudflare Worker URL when available
-    const PREVIEW_ENDPOINT = "";
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Example product catalog. This array can be populated from data/products.json
-    const products = [
-      {
-        id: "serene-intentions",
-        name: "Serene Intentions Print Set",
-        description: "A trio of calming affirmations printed on soft, textured paper for your sacred space.",
-        price: "$12",
-        theme: "serene intentions"
-      },
-      {
-        id: "daily-reset-journal",
-        name: "Daily Reset Journal",
-        description: "A 20‑page guided journal with prompts to help you reset and refocus every day.",
-        price: "$15",
-        theme: "daily reset"
-      },
-      {
-        id: "calm-mornings-bundle",
-        name: "Calm Mornings Bundle",
-        description: "A bundle including a print and mini journal to start your mornings with peace and clarity.",
-        price: "$20",
-        theme: "calm morning"
-      }
-    ];
-
-    // Render product grid
-    function renderProducts() {
-      const grid = document.getElementById('productGrid');
-      products.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <h3>${product.name}</h3>
-          <p>${product.description}</p>
-          <div class="price">${product.price}</div>
-          <button data-theme="${product.theme}">Preview</button>
-        `;
-        card.querySelector('button').addEventListener('click', (e) => {
-          e.preventDefault();
-          generatePreview(product.theme);
-        });
-        grid.appendChild(card);
+    // Simple category filter
+    const chips = document.querySelectorAll('.chip');
+    const items = document.querySelectorAll('#productGrid .product');
+    chips.forEach(ch => ch.addEventListener('click', () => {
+      chips.forEach(c=>c.classList.remove('active'));
+      ch.classList.add('active');
+      const cat = ch.dataset.filter;
+      items.forEach(it => {
+        const on = cat === 'all' || it.dataset.cat === cat;
+        it.style.display = on ? 'flex' : 'none';
       });
-    }
+    }));
 
-    // Preview generator for custom themes or product themes
-    document.getElementById('previewForm').addEventListener('submit', (e) => {
+    // Fake subscribe (replace with real endpoint later)
+    document.getElementById('subscribeForm').addEventListener('submit', (e)=>{
       e.preventDefault();
-      const theme = document.getElementById('themeInput').value.trim();
-      if (!theme) return;
-      generatePreview(theme);
+      const email = e.target.email.value.trim();
+      if(!email) return;
+      alert('Thanks! We\'ll notify you at '+email+' when checkout opens.');
+      e.target.reset();
     });
-
-    async function generatePreview(theme) {
-      const resultEl = document.getElementById('previewResult');
-      const textEl = document.getElementById('previewText');
-      // If no endpoint is configured, use a demo fallback
-      if (!PREVIEW_ENDPOINT) {
-        const pretty = theme.charAt(0).toUpperCase() + theme.slice(1);
-        textEl.textContent = `“${pretty} is a moment to pause, breathe, and realign with your purpose.”`;
-        resultEl.style.display = 'block';
-        return;
-      }
-      try {
-        const response = await fetch(PREVIEW_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ theme: theme, type: 'print' })
-        });
-        const data = await response.json();
-        if (data.ok) {
-          textEl.textContent = `“${data.preview}”`;
-        } else {
-          textEl.textContent = 'Preview unavailable. Please try again.';
-        }
-      } catch (err) {
-        textEl.textContent = 'An error occurred. Please try again.';
-      }
-      resultEl.style.display = 'block';
-    }
-
-    // Email form AJAX submission to prevent page reload
-    (function() {
-      const form = document.getElementById('subscribeForm');
-      const msg = document.getElementById('subscribeMsg');
-      if (!form) return;
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const data = new FormData(form);
-        try {
-          const r = await fetch(form.action, {
-            method: 'POST',
-            body: data,
-            headers: { 'Accept': 'application/json' }
-          });
-          if (r.ok) {
-            msg.textContent = "Thanks! You’re on the list for launch updates and monthly printables.";
-            form.reset();
-          } else {
-            msg.textContent = "Something went wrong. Please try again soon.";
-          }
-        } catch {
-          msg.textContent = "Network error. Please try again.";
-        }
-      });
-    })();
-
-    // Initialize site
-    renderProducts();
   </script>
 </body>
 </html>
