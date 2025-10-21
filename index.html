@@ -39,6 +39,8 @@
     .logo{height:32px;width:auto;display:block}
     .brand h1{font-family:Marcellus,serif;font-size:20px;letter-spacing:.5px;margin:0}
     .nav a.btn{padding:10px 14px;border-radius:999px;border:1px solid rgba(0,0,0,.06);background:var(--cream)}
+  .cart-btn{display:inline-flex;align-items:center;gap:8px}
+  .badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 6px;border-radius:999px;background:var(--olive);color:#fff;font-size:12px;font-weight:700}
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:64px 0}
     .card{background:var(--cream);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05)}
     .hero .panel{padding:28px}
@@ -80,6 +82,57 @@
       .hero{grid-template-columns:1fr}
       .features,.grid,.testimonials,.signup{grid-template-columns:1fr}
     }
+
+  /* Modal and Generator */
+  .modal{position:fixed;inset:0;display:none;z-index:1000}
+  .modal.open{display:block}
+  .modal .backdrop{position:absolute;inset:0;background:rgba(46,44,42,.85);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);animation:fadeIn .2s ease-out}
+  .modal-card{position:relative;background:#fff;border-radius:24px;max-width:900px;max-height:80vh;margin:40px auto;overflow:auto;box-shadow:var(--shadow);transform:scale(.95);opacity:0;animation:cardIn .25s ease-out forwards}
+  .modal-close{position:absolute;top:12px;right:12px;width:44px;height:44px;border:none;background:#fff;border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.12);cursor:pointer;font-size:20px;display:grid;place-items:center;z-index:1002}
+  .gen-grid{display:grid;grid-template-columns:40% 40% 20%;gap:18px;padding:28px}
+  .gen-left,.gen-center,.gen-right{min-width:0}
+  .gen-title{font-family:Marcellus,serif;font-size:32px;margin:0 0 10px}
+  .label{font-size:13px;color:var(--ink);margin:10px 0 6px;display:block}
+  .control{width:100%;padding:18px 16px;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;font:inherit;transition:all .15s ease}
+  .control:focus{outline:none;border-color:transparent;box-shadow:0 0 0 2px var(--olive)}
+  .choice-row{display:flex;gap:10px;flex-wrap:wrap}
+  .radio{display:flex;gap:8px;align-items:center;padding:12px 14px;border:1px solid rgba(0,0,0,.12);border-radius:12px;cursor:pointer}
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip-swatch{width:40px;height:40px;border-radius:999px;border:2px solid transparent;cursor:pointer}
+  .chip-swatch[aria-checked="true"]{border-color:#222}
+  .swatch-sage{background:#b9c2b0}
+  .swatch-olive{background:#7b8d6a}
+  .swatch-clay{background:#b8856a}
+  .swatch-mix{background:linear-gradient(45deg,#b9c2b0 0%,#7b8d6a 50%,#b8856a 100%)}
+  .error{color:#dc2626;font-size:14px;margin-top:6px}
+  .help{color:var(--ink);opacity:.7;font-size:14px;margin-bottom:8px}
+  .gen-actions{display:flex;flex-direction:column;gap:10px}
+  .btn-ghost-wide{background:transparent;border:1px solid rgba(0,0,0,.12);padding:12px 16px;border-radius:999px;font-weight:600}
+  .btn-primary-wide{background:var(--olive);color:#fff;border:none;padding:16px;border-radius:999px;font-weight:600;box-shadow:0 4px 12px rgba(123,141,106,.3);cursor:pointer}
+  .btn-primary-wide:disabled{opacity:.5;cursor:not-allowed}
+  .price-lg{font-weight:800;font-size:28px}
+  .preview-wrap{display:flex;flex-direction:column;gap:8px}
+  .preview-label{font-size:14px;color:var(--ink);opacity:.7}
+  .preview-area{aspect-ratio:4/5;background:linear-gradient(180deg,#f7f5f1,#e5e1da);border-radius:12px;display:grid;place-items:center;overflow:hidden}
+  .spinner{width:40px;height:40px;border:3px solid rgba(0,0,0,.1);border-top-color:var(--olive);border-radius:50%;animation:spin 1s linear infinite}
+  .success{color:#2f855a;font-size:14px}
+  .preview-msg{font-size:14px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes cardIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+  /* Toast */
+  .toast{position:fixed;right:16px;bottom:16px;background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:var(--shadow);border-radius:12px;padding:12px 14px;z-index:1100;display:none}
+  .toast.show{display:block;animation:fadeIn .2s ease-out}
+  /* Responsive modal */
+  @media (max-width: 1023px){
+    .modal-card{max-width:90vw;max-height:85vh}
+    .gen-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width: 767px){
+    .modal-card{width:100vw;height:100vh;margin:0;border-radius:0;max-height:100vh}
+    .gen-grid{grid-template-columns:1fr;padding:16px}
+    .preview-wrap{order:1;position:sticky;top:0;background:#fff;padding-bottom:8px;z-index:1}
+    }
   </style>
   <script type="application/ld+json">
   {
@@ -96,14 +149,18 @@
   <header>
     <div class="wrap nav">
       <div class="brand">
-        <img src="assets/logo.png" alt="Luna Rituals logo" class="logo" />
+    <img src="assets/logo.png" alt="Luna Rituals logo" class="logo" />
         <h1>Luna Rituals</h1>
       </div>
-      <nav>
+    <nav>
         <a class="btn" href="#shop">Shop</a>
         <a class="btn" href="#about">About</a>
         <a class="btn" href="#signup">Sign up</a>
-      </nav>
+        <a class="btn cart-btn" href="#" id="cartBtn" aria-label="Cart">
+          <span>Cart</span>
+          <span class="badge" id="cartBadge" aria-live="polite">0</span>
+        </a>
+    </nav>
     </div>
   </header>
 
@@ -303,20 +360,87 @@
         <p class="lead">Join the list for launch day access, early discounts, and free monthly printables. No spam, just gentle inspiration.</p>
         <form id="subscribeForm">
           <input type="email" name="email" placeholder="Your email" required aria-label="Email address" />
-          <button type="submit">Notify me</button>
-        </form>
+        <button type="submit">Notify me</button>
+      </form>
       </div>
     </section>
 
-    <footer>
+  <footer>
       <div class="wrap" style="padding:0">
         <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
           <small>© <span id="year"></span> Luna Rituals</small>
           <small><a href="#">Pinterest</a> · <a href="#">Instagram</a> · <a href="#">Contact</a></small>
         </div>
       </div>
-    </footer>
+  </footer>
   </main>
+
+  <!-- Modal: Custom Generator -->
+  <div class="modal" id="generatorModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="backdrop" id="modalBackdrop"></div>
+    <div class="modal-card" role="document">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="gen-grid" id="genGrid">
+        <!-- Left: Inputs -->
+        <section class="gen-left">
+          <h2 class="gen-title" id="genTitle">Customize Your Product</h2>
+          <p class="help">Personalize the theme and style. You’ll preview before adding to cart.</p>
+          <label class="label" for="productType">Product Type</label>
+          <div class="choice-row" role="radiogroup" aria-label="Product Type">
+            <label class="radio"><input type="radio" name="productType" value="print" checked> Print</label>
+            <label class="radio"><input type="radio" name="productType" value="journal"> Journal</label>
+            <label class="radio"><input type="radio" name="productType" value="bundle"> Bundle</label>
+          </div>
+
+          <label class="label" for="themeInput">Theme / Mood</label>
+          <input id="themeInput" class="control" type="text" placeholder="e.g., calm mornings, focused energy" maxlength="100" aria-describedby="themeError" required />
+          <div id="themeError" class="error" aria-live="polite" style="display:none"></div>
+
+          <label class="label">Color Preference</label>
+          <div class="chips" role="radiogroup" aria-label="Color Preference">
+            <button type="button" class="chip-swatch swatch-sage" data-color="sage" role="radio" aria-checked="true" aria-label="Sage"></button>
+            <button type="button" class="chip-swatch swatch-olive" data-color="olive" role="radio" aria-checked="false" aria-label="Olive"></button>
+            <button type="button" class="chip-swatch swatch-clay" data-color="clay" role="radio" aria-checked="false" aria-label="Clay"></button>
+            <button type="button" class="chip-swatch swatch-mix" data-color="mix" role="radio" aria-checked="false" aria-label="Mix"></button>
+          </div>
+
+          <label class="label" for="styleSelect">Style</label>
+          <select id="styleSelect" class="control" aria-label="Style">
+            <option value="minimal" selected>Minimal</option>
+            <option value="detailed">Detailed</option>
+          </select>
+
+          <label class="label" for="notesInput">Additional Notes</label>
+          <textarea id="notesInput" class="control" rows="4" style="min-height:120px"></textarea>
+
+          <button id="generateBtn" class="btn-primary-wide" style="margin-top:10px">Generate Preview</button>
+        </section>
+
+        <!-- Center: Preview -->
+        <section class="gen-center">
+          <div class="preview-wrap">
+            <div class="preview-label">Live Preview</div>
+            <div class="preview-area" id="previewArea" aria-label="Product preview" aria-busy="false"></div>
+            <div id="previewStatus" class="preview-msg" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <!-- Right: Details & Actions -->
+        <aside class="gen-right">
+          <h3 style="margin:0 0 10px">Product Details</h3>
+          <div class="help">Format: Digital Download<br>Size: 8×10" (print‑ready)<br>File: High‑res PDF</div>
+          <div class="price-lg" id="priceDisplay">$6.99</div>
+          <div class="gen-actions" style="margin-top:10px">
+            <button id="addToCartBtn" class="btn-primary-wide" disabled>💚 Add to Cart</button>
+            <button id="regenerateBtn" class="btn-ghost-wide" disabled>↻ Regenerate</button>
+            <button id="backToShopBtn" class="btn-ghost-wide">← Back to Shop</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
     // Year
@@ -337,11 +461,233 @@
 
     // Fake subscribe (replace with real endpoint later)
     document.getElementById('subscribeForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
+          e.preventDefault();
       const email = e.target.email.value.trim();
       if(!email) return;
       alert('Thanks! We\'ll notify you at '+email+' when checkout opens.');
       e.target.reset();
+    });
+
+    // ---------------------------
+    // Modal + Generator (Phase 1)
+    // ---------------------------
+    const modal = document.getElementById('generatorModal');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalClose = document.getElementById('modalClose');
+    const genTitle = document.getElementById('genTitle');
+    const themeInput = document.getElementById('themeInput');
+    const themeError = document.getElementById('themeError');
+    const styleSelect = document.getElementById('styleSelect');
+    const notesInput = document.getElementById('notesInput');
+    const generateBtn = document.getElementById('generateBtn');
+    const previewArea = document.getElementById('previewArea');
+    const previewStatus = document.getElementById('previewStatus');
+    const priceDisplay = document.getElementById('priceDisplay');
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    const regenerateBtn = document.getElementById('regenerateBtn');
+    const backToShopBtn = document.getElementById('backToShopBtn');
+    const cartBadge = document.getElementById('cartBadge');
+    let activeColor = 'sage';
+    let cart = [];
+    let generating = false;
+    let focusTrapStart, focusTrapEnd;
+
+    // Make product cards clickable to open modal
+    document.querySelectorAll('#productGrid .product').forEach(card => {
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.addEventListener('click', () => openModalWith(card));
+      card.addEventListener('keypress', (e)=>{ if(e.key==='Enter') openModalWith(card); });
+    });
+
+    function openModalWith(card){
+      const name = card.querySelector('.pname')?.textContent?.trim() || 'Product';
+      genTitle.textContent = `Customize Your ${name}`;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+      // Focus trap sentinels
+      if(!focusTrapStart){
+        focusTrapStart = document.createElement('div');
+        focusTrapStart.tabIndex = 0;
+        focusTrapEnd = document.createElement('div');
+        focusTrapEnd.tabIndex = 0;
+        modal.querySelector('.modal-card').prepend(focusTrapStart);
+        modal.querySelector('.modal-card').appendChild(focusTrapEnd);
+        focusTrapStart.addEventListener('focus', ()=> modalClose.focus());
+        focusTrapEnd.addEventListener('focus', ()=> modalClose.focus());
+      }
+      modalClose.focus();
+    }
+
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    }
+
+    modalBackdrop.addEventListener('click', closeModal);
+    modalClose.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape' && modal.classList.contains('open')) closeModal();
+    });
+
+    // Color chip selection
+    document.querySelectorAll('.chip-swatch').forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        document.querySelectorAll('.chip-swatch').forEach(c=>c.setAttribute('aria-checked','false'));
+        chip.setAttribute('aria-checked','true');
+        activeColor = chip.dataset.color;
+      });
+    });
+
+    // Validation
+    function validate(){
+      const val = themeInput.value.trim();
+      if(val.length < 3){
+        themeError.style.display = 'block';
+        themeError.textContent = 'Please enter at least 3 characters.';
+        themeInput.setAttribute('aria-invalid','true');
+        return false;
+      }
+      if(val.length > 100){
+        themeError.style.display = 'block';
+        themeError.textContent = 'Keep it under 100 characters.';
+        themeInput.setAttribute('aria-invalid','true');
+        return false;
+      }
+      themeError.style.display = 'none';
+      themeInput.removeAttribute('aria-invalid');
+      return true;
+    }
+    themeInput.addEventListener('input', validate);
+
+    // Mock generate API and SVG builder
+    function generateMockSVG(type, theme, color){
+      const fill = color === 'sage' ? '#b9c2b0' : color === 'olive' ? '#7b8d6a' : color === 'clay' ? '#b8856a' : '#a8b5aa';
+      if(type === 'journal'){
+        return `<svg viewBox='0 0 600 750' xmlns='http://www.w3.org/2000/svg'>
+          <rect width='600' height='750' fill='#f7f5f1'/>
+          <rect x='80' y='120' width='440' height='520' rx='12' fill='#e9e5df'/>
+          ${Array.from({length:12}).map((_,i)=>`<rect x='100' y='${160+i*36}' width='400' height='2' fill='${fill}' opacity='0.5'/>`).join('')}
+          <text x='300' y='120' text-anchor='middle' font-family='Marcellus' font-size='20' fill='#47433f'>${theme}</text>
+        </svg>`;
+      }
+      if(type === 'bundle'){
+        return `<svg viewBox='0 0 600 750' xmlns='http://www.w3.org/2000/svg'>
+          <rect width='600' height='750' fill='#f7f5f1'/>
+          <rect x='90' y='120' width='420' height='140' rx='14' fill='${fill}'/>
+          <rect x='90' y='300' width='420' height='140' rx='14' fill='${fill}' opacity='0.8'/>
+          <rect x='90' y='480' width='420' height='140' rx='14' fill='${fill}' opacity='0.6'/>
+          <text x='300' y='100' text-anchor='middle' font-family='Marcellus' font-size='20' fill='#47433f'>${theme}</text>
+        </svg>`;
+      }
+      // print
+      return `<svg viewBox='0 0 600 750' xmlns='http://www.w3.org/2000/svg'>
+        <rect width='600' height='750' fill='#f7f5f1'/>
+        <circle cx='300' cy='240' r='80' fill='${fill}'/>
+        <rect x='180' y='380' width='240' height='14' rx='7' fill='${fill}' opacity='0.9'/>
+        <rect x='210' y='410' width='180' height='10' rx='5' fill='${fill}' opacity='0.7'/>
+        <text x='300' y='520' text-anchor='middle' font-family='Marcellus' font-size='22' fill='#47433f'>${theme}</text>
+      </svg>`;
+    }
+
+    async function generateProduct(productType, theme, colorPref, style, notes){
+      showLoadingSpinner();
+      await new Promise(r=>setTimeout(r,2000));
+      const svg = generateMockSVG(productType, theme, colorPref);
+      return { success:true, svg, productId:'temp_'+Date.now(), price: productType==='bundle'?14.99:productType==='journal'?12.99:6.99 };
+    }
+
+    function showLoadingSpinner(){
+      previewArea.innerHTML = `<div class='spinner' aria-hidden='true'></div>`;
+      previewArea.setAttribute('aria-busy','true');
+      previewStatus.textContent = 'Crafting your design...';
+    }
+    function showError(){
+      previewArea.innerHTML = `<div style="background:#fef2f2;color:#dc2626;padding:12px;border-radius:12px">Couldn't generate preview. Please try again.</div>`;
+      previewArea.setAttribute('aria-busy','false');
+      previewStatus.textContent = '';
+      generateBtn.disabled = false;
+      enableInputs(true);
+    }
+    function showSuccess(svg, price){
+      previewArea.innerHTML = svg;
+      previewArea.setAttribute('aria-busy','false');
+      previewStatus.textContent = '✓ Preview ready';
+      addToCartBtn.disabled = false;
+      regenerateBtn.disabled = false;
+      priceDisplay.textContent = `$${price.toFixed(2)}`;
+    }
+
+    function enableInputs(on){
+      document.querySelectorAll('.control, .radio input, .chip-swatch, #generateBtn').forEach(el=>{
+        if(el.id==='generateBtn'){ el.disabled = !on ? true : false; return; }
+        el.disabled = !on;
+      });
+    }
+
+    // Generate button
+    generateBtn.addEventListener('click', async ()=>{
+      if(generating) return;
+      if(!validate()){
+        themeInput.classList.add('shake');
+        setTimeout(()=>themeInput.classList.remove('shake'),400);
+        return;
+      }
+      generating = true;
+      addToCartBtn.disabled = true;
+      regenerateBtn.disabled = true;
+      enableInputs(false);
+      generateBtn.disabled = true;
+      const type = (document.querySelector('input[name="productType"]:checked')||{}).value || 'print';
+      const theme = themeInput.value.trim();
+      const style = styleSelect.value;
+      const notes = notesInput.value.trim();
+      try{
+        const res = await generateProduct(type, theme, activeColor, style, notes);
+        if(res.success){
+          showSuccess(res.svg, res.price);
+          generateBtn.disabled = false;
+          } else {
+          showError();
+        }
+      } catch(e){
+        showError();
+      } finally {
+        generating = false;
+        enableInputs(true);
+      }
+    });
+
+    // Regenerate
+    regenerateBtn.addEventListener('click', ()=>{
+      if(generateBtn.disabled) return;
+      generateBtn.click();
+    });
+
+    // Back to shop
+    backToShopBtn.addEventListener('click', ()=>{
+      closeModal();
+      document.getElementById('shop').scrollIntoView({behavior:'smooth'});
+    });
+
+    // Add to cart (placeholder)
+    function showToast(msg){
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),3000);
+    }
+    addToCartBtn.addEventListener('click', ()=>{
+      const type = (document.querySelector('input[name="productType"]:checked')||{}).value || 'print';
+      const theme = themeInput.value.trim();
+      const svg = previewArea.innerHTML;
+      const price = parseFloat(priceDisplay.textContent.replace('$','')) || 6.99;
+      cart.push({ id: 'temp_'+Date.now(), type, theme, svgPreview: svg, price });
+      cartBadge.textContent = String(cart.length);
+      showToast('Added to cart!');
+      closeModal();
     });
   </script>
 </body>
