@@ -59,7 +59,8 @@
     .feature{padding:18px}
     .feature h3{margin:8px 0 6px;font-size:18px}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .product{display:flex;flex-direction:column;overflow:hidden;cursor:pointer}
+  .product{display:flex;flex-direction:column;overflow:hidden;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease}
+  .product:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
     .media{aspect-ratio:4/5;background:linear-gradient(180deg,#f7f5f1, #e5e1da);display:grid;place-items:center}
     .tag{position:absolute;top:10px;left:10px;background:rgba(123,141,106,.9);color:#fff;font-size:12px;padding:6px 10px;border-radius:999px}
     .pbody{padding:14px}
@@ -89,14 +90,16 @@
   .modal .backdrop{position:absolute;inset:0;background:rgba(46,44,42,.85);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);animation:fadeIn .2s ease-out}
   .modal-card{position:relative;background:#fff;border-radius:24px;max-width:900px;max-height:80vh;margin:40px auto;overflow:auto;box-shadow:var(--shadow);transform:scale(.95);opacity:0;animation:cardIn .25s ease-out forwards}
   .modal-close{position:absolute;top:12px;right:12px;width:44px;height:44px;border:none;background:#fff;border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.12);cursor:pointer;font-size:20px;display:grid;place-items:center;z-index:1002}
-  .gen-grid{display:grid;grid-template-columns:40% 40% 20%;gap:18px;padding:28px}
-  .gen-left,.gen-center,.gen-right{min-width:0}
+  .gen-grid{display:grid;grid-template-columns:40% 40% 20%;gap:18px;padding:28px;grid-template-areas:"left center right"}
+  .gen-left{min-width:0;grid-area:left}
+  .gen-center{min-width:0;grid-area:center}
+  .gen-right{min-width:0;grid-area:right}
   .gen-title{font-family:Marcellus,serif;font-size:32px;margin:0 0 10px}
   .label{font-size:13px;color:var(--ink);margin:10px 0 6px;display:block}
   .control{width:100%;padding:18px 16px;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;font:inherit;transition:all .15s ease}
   .control:focus{outline:none;border-color:transparent;box-shadow:0 0 0 2px var(--olive)}
   .choice-row{display:flex;gap:10px;flex-wrap:wrap}
-  .radio{display:flex;gap:8px;align-items:center;padding:12px 14px;border:1px solid rgba(0,0,0,.12);border-radius:12px;cursor:pointer}
+  .radio{display:flex;gap:8px;align-items:center;padding:12px 14px;border:1px solid rgba(0,0,0,.12);border-radius:12px;cursor:pointer;min-height:48px}
   .chips{display:flex;gap:10px;flex-wrap:wrap}
   .chip-swatch{width:40px;height:40px;border-radius:999px;border:2px solid transparent;cursor:pointer}
   .chip-swatch[aria-checked="true"]{border-color:#222}
@@ -107,8 +110,8 @@
   .error{color:#dc2626;font-size:14px;margin-top:6px}
   .help{color:var(--ink);opacity:.7;font-size:14px;margin-bottom:8px}
   .gen-actions{display:flex;flex-direction:column;gap:10px}
-  .btn-ghost-wide{background:transparent;border:1px solid rgba(0,0,0,.12);padding:12px 16px;border-radius:999px;font-weight:600}
-  .btn-primary-wide{background:var(--olive);color:#fff;border:none;padding:16px;border-radius:999px;font-weight:600;box-shadow:0 4px 12px rgba(123,141,106,.3);cursor:pointer}
+  .btn-ghost-wide{background:transparent;border:1px solid rgba(0,0,0,.12);padding:0 16px;border-radius:999px;font-weight:600;height:48px}
+  .btn-primary-wide{background:var(--olive);color:#fff;border:none;padding:0 20px;border-radius:999px;font-weight:600;box-shadow:0 4px 12px rgba(123,141,106,.3);cursor:pointer;height:56px}
   .btn-primary-wide:disabled{opacity:.5;cursor:not-allowed}
   .btn-primary-wide:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(123,141,106,.35)}
   .btn-primary-wide:active{transform:translateY(0)}
@@ -133,11 +136,12 @@
   /* Responsive modal */
   @media (max-width: 1023px){
     .modal-card{max-width:90vw;max-height:85vh}
-    .gen-grid{grid-template-columns:1fr 1fr}
+    .gen-grid{grid-template-columns:1.2fr .8fr;grid-template-areas:'center left' 'center right';padding:32px}
   }
   @media (max-width: 767px){
-    .modal-card{width:100vw;height:100vh;margin:0;border-radius:0;max-height:100vh}
-    .gen-grid{grid-template-columns:1fr;padding:16px}
+    .modal-card{width:100vw;height:100vh;margin:0;border-radius:0;max-height:100vh;padding-top:max(16px, env(safe-area-inset-top));padding-bottom:max(16px, env(safe-area-inset-bottom))}
+    .modal-close{top:max(12px, env(safe-area-inset-top))}
+    .gen-grid{grid-template-columns:1fr;grid-template-areas:'center' 'right' 'left';padding:16px}
     .preview-wrap{order:1;position:sticky;top:0;background:#fff;padding-bottom:8px;z-index:1}
     }
   </style>
@@ -589,19 +593,24 @@
         themeError.style.display = 'block';
         themeError.textContent = 'Please enter at least 3 characters.';
         themeInput.setAttribute('aria-invalid','true');
+        generateBtn.disabled = true;
         return false;
       }
       if(val.length > 100){
         themeError.style.display = 'block';
         themeError.textContent = 'Keep it under 100 characters.';
         themeInput.setAttribute('aria-invalid','true');
+        generateBtn.disabled = true;
         return false;
       }
       themeError.style.display = 'none';
       themeInput.removeAttribute('aria-invalid');
+      generateBtn.disabled = false;
       return true;
     }
     themeInput.addEventListener('input', validate);
+    // initialize button state
+    validate();
 
     // Mock generate API and SVG builder
     function generateMockSVG(type, theme, color){
@@ -629,7 +638,7 @@
         <circle cx='300' cy='240' r='80' fill='${fill}'/>
         <rect x='180' y='380' width='240' height='14' rx='7' fill='${fill}' opacity='0.9'/>
         <rect x='210' y='410' width='180' height='10' rx='5' fill='${fill}' opacity='0.7'/>
-        <text x='300' y='520' text-anchor='middle' font-family='Marcellus' font-size='22' fill='#47433f'>${theme}</text>
+        <text x='300' y='520' text-anchor='middle' font-family='Marcellus' font-size='22' fill='#47433f'>${theme.length>36?theme.slice(0,36)+'…':theme}</text>
       </svg>`;
     }
 
@@ -637,7 +646,16 @@
     let genToken = 0;
     async function generateProduct(productType, theme, colorPref, style, notes){
       const myToken = ++genToken;
-      showLoadingSpinner();
+      // Fade-out current preview if present
+      if(previewArea.firstChild){
+        const current = previewArea.firstChild;
+        current.classList?.add('fade-exit');
+        current.addEventListener('animationend', ()=>{
+          if(myToken === genToken) showLoadingSpinner();
+        }, { once:true });
+      } else {
+        showLoadingSpinner();
+      }
       await new Promise(r=>setTimeout(r,2000));
       if(myToken !== genToken || !modal.classList.contains('open')){
         // Cancelled or outdated
