@@ -59,7 +59,7 @@
     .feature{padding:18px}
     .feature h3{margin:8px 0 6px;font-size:18px}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .product{display:flex;flex-direction:column;overflow:hidden}
+  .product{display:flex;flex-direction:column;overflow:hidden;cursor:pointer}
     .media{aspect-ratio:4/5;background:linear-gradient(180deg,#f7f5f1, #e5e1da);display:grid;place-items:center}
     .tag{position:absolute;top:10px;left:10px;background:rgba(123,141,106,.9);color:#fff;font-size:12px;padding:6px 10px;border-radius:999px}
     .pbody{padding:14px}
@@ -110,6 +110,8 @@
   .btn-ghost-wide{background:transparent;border:1px solid rgba(0,0,0,.12);padding:12px 16px;border-radius:999px;font-weight:600}
   .btn-primary-wide{background:var(--olive);color:#fff;border:none;padding:16px;border-radius:999px;font-weight:600;box-shadow:0 4px 12px rgba(123,141,106,.3);cursor:pointer}
   .btn-primary-wide:disabled{opacity:.5;cursor:not-allowed}
+  .btn-primary-wide:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(123,141,106,.35)}
+  .btn-primary-wide:active{transform:translateY(0)}
   .price-lg{font-weight:800;font-size:28px}
   .preview-wrap{display:flex;flex-direction:column;gap:8px}
   .preview-label{font-size:14px;color:var(--ink);opacity:.7}
@@ -120,6 +122,8 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
   @keyframes cardIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+  @keyframes shakeKey{0%{transform:translateX(0)}25%{transform:translateX(-10px)}50%{transform:translateX(10px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}}
+  .shake{animation:shakeKey .4s}
   /* Toast */
   .toast{position:fixed;right:16px;bottom:16px;background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:var(--shadow);border-radius:12px;padding:12px 14px;z-index:1100;display:none}
   .toast.show{display:block;animation:fadeIn .2s ease-out}
@@ -503,6 +507,19 @@
     function openModalWith(card){
       const name = card.querySelector('.pname')?.textContent?.trim() || 'Product';
       genTitle.textContent = `Customize Your ${name}`;
+      // Prefill product type from card tag text
+      const tag = card.querySelector('.tag')?.textContent?.toLowerCase() || '';
+      const type = tag.includes('journal') ? 'journal' : tag.includes('bundle') ? 'bundle' : 'print';
+      const radio = document.querySelector(`input[name="productType"][value="${type}"]`);
+      if(radio) radio.checked = true;
+      // Clear prior state
+      previewArea.innerHTML = '';
+      previewStatus.textContent = '';
+      addToCartBtn.disabled = true;
+      regenerateBtn.disabled = true;
+      generateBtn.disabled = false;
+      themeInput.value = '';
+      validate();
       modal.classList.add('open');
       modal.setAttribute('aria-hidden','false');
       document.body.style.overflow='hidden';
@@ -592,9 +609,16 @@
       </svg>`;
     }
 
+    // Debounce/cancel token for generation
+    let genToken = 0;
     async function generateProduct(productType, theme, colorPref, style, notes){
+      const myToken = ++genToken;
       showLoadingSpinner();
       await new Promise(r=>setTimeout(r,2000));
+      if(myToken !== genToken || !modal.classList.contains('open')){
+        // Cancelled or outdated
+        return { success:false, cancelled:true };
+      }
       const svg = generateMockSVG(productType, theme, colorPref);
       return { success:true, svg, productId:'temp_'+Date.now(), price: productType==='bundle'?14.99:productType==='journal'?12.99:6.99 };
     }
@@ -650,7 +674,7 @@
           showSuccess(res.svg, res.price);
           generateBtn.disabled = false;
           } else {
-          showError();
+          if(!res.cancelled) showError();
         }
       } catch(e){
         showError();
