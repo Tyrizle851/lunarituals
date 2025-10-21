@@ -495,6 +495,7 @@
     let cart = [];
     let generating = false;
     let focusTrapStart, focusTrapEnd;
+    let lastFocusedCard = null;
 
     // Make product cards clickable to open modal
     document.querySelectorAll('#productGrid .product').forEach(card => {
@@ -505,6 +506,7 @@
     });
 
     function openModalWith(card){
+      lastFocusedCard = card;
       const name = card.querySelector('.pname')?.textContent?.trim() || 'Product';
       genTitle.textContent = `Customize Your ${name}`;
       // Prefill product type from card tag text
@@ -534,19 +536,37 @@
         focusTrapStart.addEventListener('focus', ()=> modalClose.focus());
         focusTrapEnd.addEventListener('focus', ()=> modalClose.focus());
       }
-      modalClose.focus();
+      // Set initial focus to theme input for quick typing
+      setTimeout(()=> themeInput.focus(), 0);
     }
 
     function closeModal(){
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden','true');
       document.body.style.overflow='';
+      // Restore focus to last card
+      if(lastFocusedCard){ lastFocusedCard.focus(); }
     }
 
     modalBackdrop.addEventListener('click', closeModal);
     modalClose.addEventListener('click', closeModal);
     document.addEventListener('keydown', (e)=>{
       if(e.key==='Escape' && modal.classList.contains('open')) closeModal();
+    });
+
+    // Focus trap within modal
+    modal.addEventListener('keydown', (e)=>{
+      if(e.key !== 'Tab') return;
+      const focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const f = Array.from(focusable).filter(el=>!el.hasAttribute('disabled') && el.offsetParent !== null);
+      if(f.length===0) return;
+      const first = f[0];
+      const last = f[f.length-1];
+      if(e.shiftKey){
+        if(document.activeElement === first){ e.preventDefault(); last.focus(); }
+      } else {
+        if(document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
     });
 
     // Color chip selection
