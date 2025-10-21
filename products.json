@@ -1,0 +1,23 @@
+[
+  {
+    "id": "serene-intentions",
+    "name": "Serene Intentions Print Set",
+    "description": "A trio of calming affirmations printed on soft, textured paper for your sacred space.",
+    "price": "$12",
+    "theme": "serene intentions"
+  },
+  {
+    "id": "daily-reset-journal",
+    "name": "Daily Reset Journal",
+    "description": "A 20‑page guided journal with prompts to help you reset and refocus every day.",
+    "price": "$15",
+    "theme": "daily reset"
+  },
+  {
+    "id": "calm-mornings-bundle",
+    "name": "Calm Mornings Bundle",
+    "description": "A bundle including a print and mini journal to start your mornings with peace and clarity.",
+    "price": "$20",
+    "theme": "calm morning"
+  }
+]

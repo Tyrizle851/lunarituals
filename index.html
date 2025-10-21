@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Luna Rituals – Elevate Your Space &amp; Mind</title>
+  <meta name="description" content="Luna Rituals offers AI‑crafted affirmation prints, journals and digital ritual bundles designed to elevate your space and spirit. Explore our serene collections and personalize your own rituals.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Canonical URL for SEO -->
+  <link rel="canonical" href="https://tyrezell851.github.io/lunarituals/">
+  <style>
+    /* Design system */
+    :root {
+      --cream: #f7f3e8;
+      --clay: #855f47;
+      --sage: #7b8d6a;
+      --ink: #4d3b33;
+      --radius: 12px;
+      --maxWidth: 960px;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      padding: 24px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--maxWidth);
+      margin: 0 auto;
+    }
+    header img.logo {
+      height: 48px;
+    }
+    nav a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    main {
+      max-width: var(--maxWidth);
+      margin: 0 auto;
+      padding: 16px;
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 0;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--ink);
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #5c5047;
+      flex: 1;
+      margin-bottom: 12px;
+    }
+    .card .price {
+      font-weight: bold;
+      color: var(--clay);
+      margin-bottom: 12px;
+    }
+    .card button {
+      padding: 10px 14px;
+      background: var(--sage);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .section {
+      margin-top: 60px;
+    }
+    #preview {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    #preview h2 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+    #preview form {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    #preview input {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: var(--cream);
+      color: var(--ink);
+    }
+    #preview button {
+      padding: 12px 18px;
+      background: var(--sage);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #previewResult {
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: var(--cream);
+    }
+    #previewResult h3 {
+      margin-bottom: 8px;
+    }
+    #previewResult p {
+      font-style: italic;
+    }
+    #signup {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    #signup h2 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+    #signup p {
+      margin-bottom: 12px;
+    }
+    #signup form {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    #signup input[type=email] {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: var(--cream);
+    }
+    #signup button {
+      padding: 12px 18px;
+      background: var(--clay);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      color: #5c5047;
+    }
+    @media (max-width: 480px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="assets/logo.png" alt="Luna Rituals logo" class="logo" />
+    <nav>
+      <a href="#collections">Collections</a>
+      <a href="#preview">Preview</a>
+      <a href="#signup">Subscribe</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Elevate Your Space &amp; Mind</h1>
+      <p>Discover AI‑crafted affirmation prints, journals, and ritual bundles designed to bring serenity and intention into your daily life.</p>
+    </section>
+    <section id="collections" class="section">
+      <h2>Featured Collections</h2>
+      <div class="products" id="productGrid">
+        <!-- Products will be populated by script -->
+      </div>
+    </section>
+    <section id="preview" class="section">
+      <h2>Try a Personalized Preview</h2>
+      <p class="lead">Enter a theme or mood (e.g. calm morning, focus, gratitude) to see an AI‑generated affirmation sample.</p>
+      <form id="previewForm">
+        <input type="text" id="themeInput" placeholder="e.g. calm morning" required />
+        <button type="submit">Generate Preview</button>
+      </form>
+      <div id="previewResult">
+        <h3>Your Preview</h3>
+        <p id="previewText"></p>
+      </div>
+    </section>
+    <section id="signup" class="section">
+      <h2>Join the Ritual</h2>
+      <p>Sign up for launch notifications and monthly printable gifts.</p>
+      <form id="subscribeForm" action="https://formspree.io/f/mvgwndjj" method="POST">
+        <input type="email" name="email" placeholder="Your email" required />
+        <!-- Honeypot field to reduce spam -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" />
+        <button type="submit">Notify me</button>
+      </form>
+      <p id="subscribeMsg" style="margin-top: 8px;"></p>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Luna Rituals. All rights reserved.
+  </footer>
+  <script>
+    // Configuration: update PREVIEW_ENDPOINT with your Cloudflare Worker URL when available
+    const PREVIEW_ENDPOINT = "";
+
+    // Example product catalog. This array can be populated from data/products.json
+    const products = [
+      {
+        id: "serene-intentions",
+        name: "Serene Intentions Print Set",
+        description: "A trio of calming affirmations printed on soft, textured paper for your sacred space.",
+        price: "$12",
+        theme: "serene intentions"
+      },
+      {
+        id: "daily-reset-journal",
+        name: "Daily Reset Journal",
+        description: "A 20‑page guided journal with prompts to help you reset and refocus every day.",
+        price: "$15",
+        theme: "daily reset"
+      },
+      {
+        id: "calm-mornings-bundle",
+        name: "Calm Mornings Bundle",
+        description: "A bundle including a print and mini journal to start your mornings with peace and clarity.",
+        price: "$20",
+        theme: "calm morning"
+      }
+    ];
+
+    // Render product grid
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h3>${product.name}</h3>
+          <p>${product.description}</p>
+          <div class="price">${product.price}</div>
+          <button data-theme="${product.theme}">Preview</button>
+        `;
+        card.querySelector('button').addEventListener('click', (e) => {
+          e.preventDefault();
+          generatePreview(product.theme);
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    // Preview generator for custom themes or product themes
+    document.getElementById('previewForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const theme = document.getElementById('themeInput').value.trim();
+      if (!theme) return;
+      generatePreview(theme);
+    });
+
+    async function generatePreview(theme) {
+      const resultEl = document.getElementById('previewResult');
+      const textEl = document.getElementById('previewText');
+      // If no endpoint is configured, use a demo fallback
+      if (!PREVIEW_ENDPOINT) {
+        const pretty = theme.charAt(0).toUpperCase() + theme.slice(1);
+        textEl.textContent = `“${pretty} is a moment to pause, breathe, and realign with your purpose.”`;
+        resultEl.style.display = 'block';
+        return;
+      }
+      try {
+        const response = await fetch(PREVIEW_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ theme: theme, type: 'print' })
+        });
+        const data = await response.json();
+        if (data.ok) {
+          textEl.textContent = `“${data.preview}”`;
+        } else {
+          textEl.textContent = 'Preview unavailable. Please try again.';
+        }
+      } catch (err) {
+        textEl.textContent = 'An error occurred. Please try again.';
+      }
+      resultEl.style.display = 'block';
+    }
+
+    // Email form AJAX submission to prevent page reload
+    (function() {
+      const form = document.getElementById('subscribeForm');
+      const msg = document.getElementById('subscribeMsg');
+      if (!form) return;
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        try {
+          const r = await fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (r.ok) {
+            msg.textContent = "Thanks! You’re on the list for launch updates and monthly printables.";
+            form.reset();
+          } else {
+            msg.textContent = "Something went wrong. Please try again soon.";
+          }
+        } catch {
+          msg.textContent = "Network error. Please try again.";
+        }
+      });
+    })();
+
+    // Initialize site
+    renderProducts();
+  </script>
+</body>
+</html>
