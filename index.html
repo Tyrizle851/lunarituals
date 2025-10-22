@@ -28,11 +28,12 @@
   <!-- TikTok Pixel (when ready for TikTok Shop) -->
   <!-- <script src="assets/tiktok-pixel.js"></script> -->
 
-  <!-- OpenAI API Configuration -->
+  <!-- OpenAI API Configuration (ready for integration) -->
+  <!-- Uncomment and add your API key when ready:
   <script>
-    // Replace with your actual OpenAI API key
     const OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY_HERE';
   </script>
+  -->
   <style>
     :root{
       /* Soft earthy palette */
@@ -653,81 +654,19 @@
     // initialize button state
     validate();
 
-    // Real OpenAI API integration for SVG generation
+    // Enhanced mock generation (ready for AI integration)
     async function generateAIProduct(productType, theme, colorPref, style, notes){
-      const colorMap = {
-        sage: '#b9c2b0',
-        olive: '#7b8d6a',
-        clay: '#b8856a',
-        mix: 'linear-gradient(45deg,#b9c2b0 0%,#7b8d6a 50%,#b8856a 100%)'
+      // Simulate AI processing time (1-3 seconds)
+      const delay = Math.random() * 2000 + 1000;
+      await new Promise(r => setTimeout(r, delay));
+
+      // Use enhanced mock that considers style and notes
+      return {
+        success: true,
+        svg: generateEnhancedMockSVG(productType, theme, colorPref, style, notes),
+        productId: 'enhanced_' + Date.now(),
+        price: productType === 'bundle' ? 14.99 : productType === 'journal' ? 12.99 : 6.99
       };
-      const primaryColor = colorMap[colorPref] || colorMap.sage;
-
-      // Craft detailed prompt for OpenAI
-      let productPrompt = '';
-      if(productType === 'print'){
-        productPrompt = `Create a minimalist affirmation print design. Theme: "${theme}". Style: ${style}. Use earthy colors with ${colorPref} as primary accent. Include the theme text prominently. Format as clean SVG code only.`;
-      } else if(productType === 'journal'){
-        productPrompt = `Design a journal cover with lined paper aesthetic. Theme: "${theme}". Style: ${style}. ${colorPref} color scheme. Include subtle design elements and the theme text. SVG format only.`;
-      } else if(productType === 'bundle'){
-        productPrompt = `Create a bundle preview showing 3 stacked items (print + journal + card). Theme: "${theme}". Style: ${style}. ${colorPref} color palette. Clean, minimalist design. SVG format only.`;
-      }
-
-      if(notes){
-        productPrompt += ` Additional notes: ${notes}`;
-      }
-
-      productPrompt += ` Generate complete SVG code (viewBox="0 0 600 750") with no explanations. Use earthy, calming colors: background #f7f5f1, accents ${primaryColor}. Include the theme "${theme}" in elegant typography.`;
-
-      try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${window.OPENAI_API_KEY}`
-          },
-          body: JSON.stringify({
-            model: 'gpt-4o-mini',
-            messages: [{
-              role: 'user',
-              content: productPrompt + ' Output ONLY the complete SVG code between <svg> and </svg> tags. No explanations or markdown.'
-            }],
-            max_tokens: 1000,
-            temperature: 0.7
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error(`API Error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const svgContent = data.choices[0].message.content.trim();
-
-        // Clean up the SVG content (remove markdown if present)
-        const cleanSvg = svgContent.replace(/```svg|```|svg|```/g, '').trim();
-
-        // Ensure it starts and ends with proper SVG tags
-        let finalSvg = cleanSvg;
-        if (!finalSvg.startsWith('<svg')) {
-          finalSvg = `<svg viewBox="0 0 600 750" xmlns="http://www.w3.org/2000/svg">${finalSvg}`;
-        }
-        if (!finalSvg.endsWith('</svg>')) {
-          finalSvg += '</svg>';
-        }
-
-        return {
-          success: true,
-          svg: finalSvg,
-          productId: 'ai_' + Date.now(),
-          price: productType === 'bundle' ? 14.99 : productType === 'journal' ? 12.99 : 6.99
-        };
-
-      } catch (error) {
-        console.error('OpenAI API Error:', error);
-        // Fallback to mock if API fails
-        return generateEnhancedMockSVG(productType, theme, colorPref, style, notes);
-      }
     }
 
     // Enhanced mock SVG with style variations
@@ -833,7 +772,7 @@
         result = {
           success: true,
           svg: generateEnhancedMockSVG(productType, theme, colorPref, style, notes),
-          productId: 'fallback_' + Date.now(),
+          productId: 'enhanced_' + Date.now(),
           price: productType === 'bundle' ? 14.99 : productType === 'journal' ? 12.99 : 6.99
         };
       }
@@ -849,7 +788,7 @@
     function showLoadingSpinner(){
       previewArea.innerHTML = `<div class='spinner' aria-hidden='true'></div>`;
       previewArea.setAttribute('aria-busy','true');
-      previewStatus.textContent = window.OPENAI_API_KEY && window.OPENAI_API_KEY !== 'YOUR_OPENAI_API_KEY_HERE' ? 'Generating with AI...' : 'Creating your design...';
+      previewStatus.textContent = 'Creating your design...';
     }
     function showError(){
       previewArea.innerHTML = `<div style="background:#fef2f2;color:#dc2626;padding:12px;border-radius:12px">Couldn't generate preview. Please try again.</div>`;
@@ -1075,7 +1014,7 @@
     };
 
     cartBtn.addEventListener('click', (e)=>{
-      e.preventDefault();
+        e.preventDefault();
       if(cart.length > 0){
         openCartModal();
           } else {
