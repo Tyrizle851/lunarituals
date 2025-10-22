@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Luna Rituals</title>
+  <meta name="description" content="Wellness tips, affirmation guides, and mindfulness resources from Luna Rituals." />
+  <meta name="theme-color" content="#e9e5df" />
+  <meta property="og:title" content="Luna Rituals — Blog" />
+  <meta property="og:description" content="Guides and inspiration for intentional living." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://tyrizle851.github.io/lunarituals/assets/logo.png" />
+  <meta property="og:url" content="https://tyrizle851.github.io/lunarituals/blog.html" />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://tyrizle851.github.io/lunarituals/blog.html">
+  <link rel="icon" href="favicon.ico">
+  <style>
+    :root{--sand:#e9e5df;--cream:#f8f6f3;--sage:#b9c2b0;--olive:#7b8d6a;--clay:#b8856a;--charcoal:#2e2c2a;--ink:#47433f;--radius:18px;--shadow:0 10px 24px rgba(0,0,0,.08)}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--sand);color:var(--charcoal);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    header{position:sticky;top:0;background:rgba(233,229,223,.85);backdrop-filter:saturate(140%) blur(8px);z-index:20;border-bottom:1px solid rgba(0,0,0,.04)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{height:32px;width:auto;display:block}
+    .brand h1{font-family:Marcellus,serif;font-size:20px;letter-spacing:.5px;margin:0}
+    .nav a.btn{padding:10px 14px;border-radius:999px;border:1px solid rgba(0,0,0,.06);background:var(--cream)}
+    .card{background:var(--cream);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05)}
+    .section{padding:24px 0 12px}
+    h2{font-family:Marcellus,serif;font-size:28px;margin:0 0 10px}
+    p.lead{color:var(--ink)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}}
+    .badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 6px;border-radius:999px;background:var(--olive);color:#fff;font-size:12px;font-weight:700}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <img src="assets/logo.png" alt="Luna Rituals logo" class="logo" />
+        <h1>Luna Rituals</h1>
+      </div>
+      <nav>
+        <a class="btn" href="index.html#shop">Shop</a>
+        <a class="btn" href="blog.html">Blog</a>
+        <a class="btn" href="index.html#about">About</a>
+        <a class="btn" href="index.html#signup">Sign up</a>
+        <a class="btn cart-btn" href="#" id="cartBtn" aria-label="Cart">
+          <span>Cart</span>
+          <span class="badge" id="cartBadge">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section" style="padding-top:40px">
+      <h1 style="font-family:Marcellus,serif;font-size:42px;margin-bottom:12px">Wellness & Mindfulness</h1>
+      <p class="lead">Guides, tips, and inspiration for intentional living.</p>
+      <div class="grid" style="margin-top:28px">
+        <article class="card" style="padding:0;overflow:hidden;cursor:pointer" onclick="window.location='blog/morning-rituals.html'">
+          <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#b9c2b0,#7b8d6a);"></div>
+          <div style="padding:18px">
+            <h3 style="margin:0 0 8px;font-size:20px">5 Morning Rituals for Calm Focus</h3>
+            <p style="color:var(--ink);font-size:14px;margin:0">Start your day with intention. Simple practices that actually work.</p>
+            <div style="margin-top:12px;font-size:13px;color:var(--ink)">5 min read</div>
+          </div>
+        </article>
+        <article class="card" style="padding:0;overflow:hidden;cursor:pointer" onclick="window.location='blog/affirmation-guide.html'">
+          <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#7b8d6a,#b8856a);"></div>
+          <div style="padding:18px">
+            <h3 style="margin:0 0 8px;font-size:20px">How to Use Affirmations Effectively</h3>
+            <p style="color:var(--ink);font-size:14px;margin:0">Science-backed techniques for making affirmations actually work.</p>
+            <div style="margin-top:12px;font-size:13px;color:var(--ink)">7 min read</div>
+          </div>
+        </article>
+        <article class="card" style="padding:0;overflow:hidden;cursor:pointer" onclick="window.location='blog/meditation-space.html'">
+          <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#b8856a,#b9c2b0);"></div>
+          <div style="padding:18px">
+            <h3 style="margin:0 0 8px;font-size:20px">Creating Your Meditation Corner</h3>
+            <p style="color:var(--ink);font-size:14px;margin:0">How to design a calming space in any home. Product recommendations included.</p>
+            <div style="margin-top:12px;font-size:13px;color:var(--ink)">6 min read</div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap" style="padding:0">
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <small>© <span id="year"></span> Luna Rituals</small>
+        <small><a href="#">Pinterest</a> · <a href="#">Instagram</a> · <a href="#">Contact</a></small>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
+

@@ -16,6 +16,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://tyrizle851.github.io/lunarituals/">
   <link rel="icon" href="favicon.ico">
+  <!-- TikTok-optimized meta tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Luna Rituals — Custom AI Affirmation Prints" />
+  <meta name="twitter:description" content="Create personalized affirmation art for your space. Instant download. $6.99+" />
+  <meta name="twitter:image" content="https://tyrizle851.github.io/lunarituals/assets/logo.png" />
+  <!-- Mobile app banner (if/when you have an app) -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Luna Rituals" />
+  <!-- TikTok Pixel (when ready for TikTok Shop) -->
+  <!-- <script src="assets/tiktok-pixel.js"></script> -->
   <style>
     :root{
       /* Soft earthy palette */
@@ -163,8 +174,9 @@
     <img src="assets/logo.png" alt="Luna Rituals logo" class="logo" />
         <h1>Luna Rituals</h1>
       </div>
-    <nav>
+      <nav>
         <a class="btn" href="#shop">Shop</a>
+        <a class="btn" href="blog.html">Blog</a>
         <a class="btn" href="#about">About</a>
         <a class="btn" href="#signup">Sign up</a>
         <a class="btn cart-btn" href="#" id="cartBtn" aria-label="Cart">
@@ -179,12 +191,12 @@
     <!-- Hero -->
     <section class="hero">
       <div class="panel card">
-        <div class="eyebrow">Soft • Earthy • Minimal</div>
-        <h2 class="headline">Elevate your space & mind.</h2>
-        <p class="sub">AI‑crafted affirmation prints, journals, and mood bundles inspired by nature. Thoughtfully designed to bring calm focus and gentle motivation to your day.</p>
+        <div class="eyebrow">From TikTok? Welcome! 👋 • Soft • Earthy • Minimal</div>
+        <h2 class="headline">Create your custom affirmation.</h2>
+        <p class="sub">Personalized AI‑crafted prints, journals, and mood bundles. Preview before you buy. Instant download.</p>
         <div class="cta">
-          <a class="btn-primary" href="#shop">Browse Collections</a>
-          <a class="btn-ghost" href="#about">Why it works</a>
+          <a class="btn-primary" href="#shop" onclick="document.querySelectorAll('.product')[0].click(); return false;">✨ Start Customizing</a>
+          <a class="btn-ghost" href="#about">How it works</a>
         </div>
       </div>
       <div class="panel">
@@ -443,7 +455,9 @@
           <div class="price-lg" id="priceDisplay">$6.99</div>
           <div class="gen-actions" style="margin-top:10px">
             <button id="addToCartBtn" class="btn-primary-wide" disabled>💚 Add to Cart</button>
+            <button id="shareTikTokBtn" class="btn-ghost-wide" style="background:#000;color:#fff;border:none" disabled>📱 Share to TikTok</button>
             <button id="regenerateBtn" class="btn-ghost-wide" disabled>↻ Regenerate</button>
+            <button id="downloadBtn" class="btn-ghost-wide" disabled>⬇️ Download Preview</button>
             <button id="backToShopBtn" class="btn-ghost-wide">← Back to Shop</button>
           </div>
         </aside>
@@ -470,13 +484,34 @@
       });
     }));
 
-    // Fake subscribe (replace with real endpoint later)
-    document.getElementById('subscribeForm').addEventListener('submit', (e)=>{
-          e.preventDefault();
+    // Email signup (REAL Formspree integration)
+    document.getElementById('subscribeForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
       const email = e.target.email.value.trim();
       if(!email) return;
-      alert('Thanks! We\'ll notify you at '+email+' when checkout opens.');
-      e.target.reset();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = 'Subscribing...';
+      btn.disabled = true;
+      try {
+        const response = await fetch('https://formspree.io/f/mvgwndjj', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, source: 'Luna Rituals Website', timestamp: new Date().toISOString() })
+        });
+        if (response.ok) {
+          showToast('✨ Welcome! Check your email for a special offer.');
+          e.target.reset();
+        } else {
+          throw new Error('Subscription failed');
+        }
+      } catch(err) {
+        showToast('Oops! Please try again or email us directly.');
+        console.error('Formspree error:', err);
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
     });
 
     // ---------------------------
@@ -653,7 +688,7 @@
         current.addEventListener('animationend', ()=>{
           if(myToken === genToken) showLoadingSpinner();
         }, { once:true });
-      } else {
+        } else {
         showLoadingSpinner();
       }
       await new Promise(r=>setTimeout(r,2000));
@@ -760,6 +795,57 @@
       cartBadge.textContent = String(cart.length);
       showToast('Added to cart!');
       closeModal();
+    });
+
+    // Share to TikTok button
+    const shareTikTokBtn = document.getElementById('shareTikTokBtn');
+    shareTikTokBtn?.addEventListener('click', async ()=> {
+      const theme = themeInput.value.trim();
+      const url = window.location.href.split('#')[0];
+      const text = `Check out my custom "${theme}" affirmation from Luna Rituals! ✨ #LunaRituals #Affirmations #Wellness #ThatGirl`;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: 'Luna Rituals - ' + theme, text, url });
+          showToast('Shared! 🎉');
+          if (window.trackTikTokEvent) { window.trackTikTokEvent('Share', { content_type: 'product', method: 'native' }); }
+        } catch(err) { if (err.name !== 'AbortError') console.error('Share failed:', err); }
+      } else {
+        try {
+          await navigator.clipboard.writeText(url);
+          showToast('Link copied! Share on TikTok 📋');
+          if (window.trackTikTokEvent) { window.trackTikTokEvent('Share', { content_type: 'product', method: 'clipboard' }); }
+        } catch(err) { alert('Copy this link to share: ' + url); }
+      }
+    });
+
+    // Download design button
+    const downloadBtn = document.getElementById('downloadBtn');
+    downloadBtn?.addEventListener('click', function() {
+      const svg = previewArea.querySelector('svg');
+      if (!svg) { showToast('No design to download yet'); return; }
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const svgString = new XMLSerializer().serializeToString(svg);
+      const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      img.onload = function() {
+        canvas.width = 1200; canvas.height = 1500;
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(function(blob) {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          const themeSlug = themeInput.value.trim().replace(/[^a-z0-9]/gi, '-').toLowerCase();
+          a.download = `luna-rituals-${themeSlug}-${Date.now()}.png`;
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          showToast('Downloaded! 📥');
+          URL.revokeObjectURL(url);
+          if (window.trackTikTokEvent) { window.trackTikTokEvent('Download', { content_type: 'product' }); }
+        });
+      };
+      img.src = url;
     });
 
     // Initialize cart badge on load
