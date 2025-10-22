@@ -684,7 +684,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENAI_API_KEY}`
+            'Authorization': `Bearer ${window.OPENAI_API_KEY}`
           },
           body: JSON.stringify({
             model: 'gpt-4o-mini',
@@ -726,8 +726,57 @@
       } catch (error) {
         console.error('OpenAI API Error:', error);
         // Fallback to mock if API fails
-        return generateMockSVG(productType, theme, colorPref);
+        return generateEnhancedMockSVG(productType, theme, colorPref, style, notes);
       }
+    }
+
+    // Enhanced mock SVG with style variations
+    function generateEnhancedMockSVG(type, theme, color, style, notes){
+      const fill = color === 'sage' ? '#b9c2b0' : color === 'olive' ? '#7b8d6a' : color === 'clay' ? '#b8856a' : '#a8b5aa';
+      const isDetailed = style === 'detailed';
+
+      if(type === 'journal'){
+        const extraLines = isDetailed ? 16 : 12;
+        const accentShapes = isDetailed ? `
+          <circle cx="450" cy="150" r="30" fill="${fill}" opacity="0.3"/>
+          <rect x="380" y="180" width="140" height="8" rx="4" fill="${fill}" opacity="0.4"/>
+        ` : '';
+        return `<svg viewBox='0 0 600 750' xmlns='http://www.w3.org/2000/svg'>
+          <rect width='600' height='750' fill='#f7f5f1'/>
+          <rect x='80' y='120' width='440' height='520' rx='12' fill='#e9e5df'/>
+          ${Array.from({length:extraLines}).map((_,i)=>`<rect x='100' y='${160+i*28}' width='400' height='2' fill='${fill}' opacity='0.5'/>`).join('')}
+          ${accentShapes}
+          <text x='300' y='120' text-anchor='middle' font-family='Marcellus' font-size='20' fill='#47433f'>${theme}</text>
+        </svg>`;
+      }
+
+      if(type === 'bundle'){
+        const stackHeight = isDetailed ? 120 : 140;
+        const spacing = isDetailed ? 20 : 30;
+        return `<svg viewBox='0 0 600 750' xmlns='http://www.w3.org/2000/svg'>
+          <rect width='600' height='750' fill='#f7f5f1'/>
+          <rect x='90' y='${120+spacing}' width='420' height='${stackHeight}' rx='14' fill='${fill}'/>
+          <rect x='90' y='${120+spacing*2+stackHeight}' width='420' height='${stackHeight}' rx='14' fill='${fill}' opacity='0.8'/>
+          <rect x='90' y='${120+spacing*3+stackHeight*2}' width='420' height='${stackHeight}' rx='14' fill='${fill}' opacity='0.6'/>
+          <text x='300' y='100' text-anchor='middle' font-family='Marcellus' font-size='20' fill='#47433f'>${theme}</text>
+        </svg>`;
+      }
+
+      // print
+      const fontSize = theme.length > 30 ? '18' : '22';
+      const circleSize = isDetailed ? 90 : 80;
+      return `<svg viewBox='0 0 600 750' xmlns='http://www.w3.org/2000/svg'>
+        <rect width='600' height='750' fill='#f7f5f1'/>
+        <circle cx='300' cy='240' r='${circleSize}' fill='${fill}'/>
+        ${isDetailed ? `
+          <circle cx='200' cy='160' r='25' fill='${fill}' opacity='0.6'/>
+          <circle cx='400' cy='160' r='25' fill='${fill}' opacity='0.6'/>
+          <rect x='250' y='320' width='100' height='6' rx='3' fill='${fill}' opacity='0.8'/>
+        ` : ''}
+        <rect x='180' y='380' width='240' height='14' rx='7' fill='${fill}' opacity='0.9'/>
+        <rect x='210' y='410' width='180' height='10' rx='5' fill='${fill}' opacity='0.7'/>
+        <text x='300' y='520' text-anchor='middle' font-family='Marcellus' font-size='${fontSize}' fill='#47433f'>${theme.length>36?theme.slice(0,36)+'…':theme}</text>
+      </svg>`;
     }
 
     // Keep mock as fallback
@@ -783,7 +832,7 @@
         console.error('AI generation failed, using fallback:', error);
         result = {
           success: true,
-          svg: generateMockSVG(productType, theme, colorPref),
+          svg: generateEnhancedMockSVG(productType, theme, colorPref, style, notes),
           productId: 'fallback_' + Date.now(),
           price: productType === 'bundle' ? 14.99 : productType === 'journal' ? 12.99 : 6.99
         };
@@ -800,7 +849,7 @@
     function showLoadingSpinner(){
       previewArea.innerHTML = `<div class='spinner' aria-hidden='true'></div>`;
       previewArea.setAttribute('aria-busy','true');
-      previewStatus.textContent = 'Generating with AI...';
+      previewStatus.textContent = window.OPENAI_API_KEY && window.OPENAI_API_KEY !== 'YOUR_OPENAI_API_KEY_HERE' ? 'Generating with AI...' : 'Creating your design...';
     }
     function showError(){
       previewArea.innerHTML = `<div style="background:#fef2f2;color:#dc2626;padding:12px;border-radius:12px">Couldn't generate preview. Please try again.</div>`;
