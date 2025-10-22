@@ -27,6 +27,12 @@
   <meta name="apple-mobile-web-app-title" content="Luna Rituals" />
   <!-- TikTok Pixel (when ready for TikTok Shop) -->
   <!-- <script src="assets/tiktok-pixel.js"></script> -->
+
+  <!-- OpenAI API Configuration -->
+  <script>
+    // Replace with your actual OpenAI API key
+    const OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY_HERE';
+  </script>
   <style>
     :root{
       /* Soft earthy palette */
@@ -678,7 +684,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer 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'
+            'Authorization': `Bearer ${OPENAI_API_KEY}`
           },
           body: JSON.stringify({
             model: 'gpt-4o-mini',
@@ -1023,7 +1029,7 @@
       e.preventDefault();
       if(cart.length > 0){
         openCartModal();
-      } else {
+          } else {
         showToast('Your cart is empty');
       }
     });
